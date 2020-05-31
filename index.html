@@ -179,20 +179,16 @@
     </div>
   </template>
   <script>
+    'use strict';
     var fireballSize = 22;
+    var wizardWidth = 70;
+    var wizardSpeed = 3;
+    var WIZARD_COEF = 1.337;
+    var wizardHeight = WIZARD_COEF * wizardWidth;
 
     function getFireballSpeed(isHeadWind) {
-      if (!isHeadWind) {
-        return 5;
-      }
-
-      return 2;
+      return isHeadWind ? 2 : 5;
     }
-
-    var wizardWidth = 70;
-    var wizardHeight = 1.337 * wizardWidth;
-
-    var wizardSpeed = 3;
 
     function getWizardX(gameFieldWidth) {
       return (gameFieldWidth - wizardWidth) / 2;
