@@ -183,11 +183,13 @@
     var fireballSize = 22;
     var wizardWidth = 70;
     var wizardSpeed = 3;
+    var fireballSpeed = 5;
+    var fireballSpeedWind = 2;
     var WIZARD_COEF = 1.337;
     var wizardHeight = WIZARD_COEF * wizardWidth;
 
     function getFireballSpeed(isHeadWind) {
-      return isHeadWind ? 2 : 5;
+      return isHeadWInd ? firiBallSpeed : firiBallSpeedWind;
     }
 
     function getWizardX(gameFieldWidth) {
