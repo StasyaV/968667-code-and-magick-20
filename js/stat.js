@@ -16,14 +16,14 @@ var resultsText = 'Список результатов:';
 var yourColor = 'rgba(255, 0, 0, 1)';
 var textColor = '#000';
 
-var renderCloud = function (ctx, x, y, color) {
+var renderCloudElement = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var renderClouds = function (ctx) {
-  renderCloud(ctx, CLOUD_X + GAP, GAP * 2, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, GAP, '#fff');
+var renderCloud = function (ctx) {
+  renderCloudElement(ctx, CLOUD_X + GAP, GAP * 2, 'rgba(0, 0, 0, 0.7)');
+  renderCloudElement(ctx, CLOUD_X, GAP, '#fff');
 };
 
 var renderCongratsText = function (ctx) {
@@ -56,8 +56,8 @@ var renderPlayersName = function (ctx, players) {
   }
 };
 
-var renderPlayersTime = function (ctx, players, times) {
-  for (var i = 0; i < players.length; i++) {
+var renderPlayersTime = function (ctx, times) {
+  for (var i = 0; i < times.length; i++) {
     ctx.fillStyle = textColor;
     ctx.fillText(Math.round(times[i]), FIRST_PLAYER_NAME_X + (BAR_GAP + BAR_WIDTH) * i, PLAYER_NAME_Y - ((BAR_MAX_HEIGHT * times[i]) / getMaxElement(times)) - BAR_WIDTH + GAP);
   }
@@ -74,7 +74,7 @@ var renderPlayersBar = function renderRects(ctx, players, times) {
 };
 
 window.renderStatistics = function (ctx, players, times) {
-  renderClouds(ctx);
+  renderCloud(ctx);
 
   renderCongratsText(ctx);
 
@@ -82,6 +82,6 @@ window.renderStatistics = function (ctx, players, times) {
 
   renderPlayersName(ctx, players);
 
-  renderPlayersTime(ctx, players, times);
+  renderPlayersTime(ctx, times);
 };
 
