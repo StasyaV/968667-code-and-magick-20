@@ -14,6 +14,11 @@ var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content
   .querySelector('.setup-similar-item');
 
+var getRandomNum = function (minValue, maxValue) {
+  var randomNum = Math.floor(Math.random() * maxValue);
+  return randomNum > minValue ? randomNum : minValue;
+};
+
 var getWizardsList = function () {
   for (var i = 0; i < wizardsCount; i++) {
     var wizardObj = {
