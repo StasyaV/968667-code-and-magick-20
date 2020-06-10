@@ -7,14 +7,11 @@ var WIZARDS_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 var wizardsList = [];
 var wizardsCount = 4;
 var similarListElement = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-  .content
-  .querySelector('.setup-similar-item');
-var userDialog = document.querySelector('.setup');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 var showUserDialog = function () {
+  var userDialog = document.querySelector('.setup');
   userDialog.classList.remove('hidden');
-  document.querySelector('.setup-similar').classList.remove('hidden');
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 };
 
@@ -45,16 +42,16 @@ var createWizardTemplate = function (wizards) {
   return wizardTemplate;
 };
 
-var renderWizards = function () {
+var renderWizards = function (wizards) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < wizardsList.length; i++) {
-    fragment.appendChild(createWizardTemplate(wizardsList[i]));
+  for (var i = 0; i < wizards.length; i++) {
+    fragment.appendChild(createWizardTemplate(wizards[i]));
   }
   similarListElement.appendChild(fragment);
 };
 
 getWizardsList();
-renderWizards();
+renderWizards(wizardsList);
 showUserDialog();
 
 
