@@ -4,14 +4,25 @@ var WIZARD_FIRST_NAMES = ['Дамблдор ', 'Волдеморт ', 'Докт�
 var WIZARD_LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var WIZARDS_COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARDS_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var WIZARD_FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var wizardsList = [];
 var wizardsCount = 4;
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var setupOpen = document.querySelector('.setup-open');
+var setup = document.querySelector('.setup');
+var setupClose = setup.querySelector('.setup-close');
+var wizardSetup = document.querySelector('.setup-wizard-wrap');
+var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 
-var showUserDialog = function () {
+wizardCoat.addEventListener('click', function () {
+  for (var i = 0; i < WIZARDS_COAT_COLOR.length; i++) {
+    wizardCoat.style.fill = WIZARDS_COAT_COLOR[i];
+  }
+});
+
+var showSimilarWizards = function () {
   var userDialog = document.querySelector('.setup');
-  userDialog.classList.remove('hidden');
   userDialog.querySelector('.setup-similar').classList.remove('hidden');
 };
 
@@ -50,8 +61,47 @@ var renderWizards = function (wizards) {
   similarListElement.appendChild(fragment);
 };
 
+var onPopupEscPress = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closePopup();
+  }
+});
+
+showSimilarWizards();
 getWizardsList();
 renderWizards(wizardsList);
-showUserDialog();
 
 
