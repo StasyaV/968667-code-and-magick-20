@@ -17,25 +17,28 @@ var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 var wizardEyeColor = wizardSetup.querySelector('.wizard-eyes');
 var wizardFireballColor = wizardSetup.querySelector('.setup-fireball-wrap');
 
+var changeColor = function (partToChange, input, color) {
+  partToChange.style.fill = color;
+  partToChange.style.background = color;
+  input.value = color;
+};
+
 wizardCoat.addEventListener('click', function () {
   var inputCoatColor = document.querySelector('input[name=coat-color]');
   var color = WIZARDS_COAT_COLOR[getRandomNum(0, WIZARDS_COAT_COLOR.length)];
-  wizardCoat.style.fill = color;
-  inputCoatColor.value = color;
+  changeColor(wizardCoat, inputCoatColor, color);
 });
 
 wizardEyeColor.addEventListener('click', function () {
   var inputEyecolor = document.querySelector('input[name=eyes-color]');
   var color = WIZARDS_EYES_COLOR[getRandomNum(0, WIZARDS_EYES_COLOR.length)];
-  wizardEyeColor.style.fill = color;
-  inputEyecolor.value = color;
+  changeColor(wizardEyeColor, inputEyecolor, color);
 });
 
 wizardFireballColor.addEventListener('click', function () {
   var inputFireballColor = document.querySelector('input[name=fireball-color]');
   var color = WIZARD_FIREBALL_COLOR[getRandomNum(0, WIZARD_FIREBALL_COLOR.length)];
-  wizardFireballColor.style.background = color;
-  inputFireballColor.value = color;
+  changeColor(wizardFireballColor, inputFireballColor, color);
 });
 
 var showSimilarWizards = function () {
