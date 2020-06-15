@@ -71,46 +71,48 @@ var renderWizards = function (wizards) {
   }
   similarListElement.appendChild(fragment);
 };
+var popupSettings = function () {
+  var onPopupEscPress = function (evt) {
+    if (evt.key === ESCAPE_TAB) {
+      evt.preventDefault();
+      closePopup();
+    }
+  };
 
-var onPopupEscPress = function (evt) {
-  if (evt.key === ESCAPE_TAB) {
-    evt.preventDefault();
-    closePopup();
-  }
-};
+  var openPopup = function () {
+    setup.classList.remove('hidden');
 
-var openPopup = function () {
-  setup.classList.remove('hidden');
+    document.addEventListener('keydown', onPopupEscPress);
+  };
 
-  document.addEventListener('keydown', onPopupEscPress);
-};
+  var closePopup = function () {
+    setup.classList.add('hidden');
 
-var closePopup = function () {
-  setup.classList.add('hidden');
+    document.removeEventListener('keydown', onPopupEscPress);
+  };
 
-  document.removeEventListener('keydown', onPopupEscPress);
-};
-
-setupOpen.addEventListener('click', function () {
-  openPopup();
-});
-
-setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_TAB) {
+  setupOpen.addEventListener('click', function () {
     openPopup();
-  }
-});
+  });
 
-setupClose.addEventListener('click', function () {
-  closePopup();
-});
+  setupOpen.addEventListener('keydown', function (evt) {
+    if (evt.key === ENTER_TAB) {
+      openPopup();
+    }
+  });
 
-setupClose.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
+  setupClose.addEventListener('click', function () {
     closePopup();
-  }
-});
+  });
 
+  setupClose.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      closePopup();
+    }
+  });
+};
+
+popupSettings();
 showSimilarWizards();
 getWizardsList();
 renderWizards(wizardsList);
