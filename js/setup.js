@@ -5,15 +5,12 @@ var WIZARD_LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 
 var WIZARDS_COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARDS_EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 var WIZARD_FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-var ESCAPE_TAB = 'Escape';
-var ENTER_TAB = 'Enter';
+var ESCAPE = 'Escape';
+var ENTER = 'Enter';
 var wizardsList = [];
 var wizardsCount = 4;
 var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-var setupOpen = document.querySelector('.setup-open');
-var setup = document.querySelector('.setup');
-var setupClose = setup.querySelector('.setup-close');
 var wizardSetup = document.querySelector('.setup-player');
 var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 var wizardEyeColor = wizardSetup.querySelector('.wizard-eyes');
@@ -71,45 +68,62 @@ var renderWizards = function (wizards) {
   }
   similarListElement.appendChild(fragment);
 };
-var popupSettings = function () {
-  var onPopupEscPress = function (evt) {
-    if (evt.key === ESCAPE_TAB) {
-      evt.preventDefault();
-      closePopup();
-    }
-  };
 
-  var openPopup = function () {
-    setup.classList.remove('hidden');
+var openPopup = function () {
+  document.querySelector('.setup').classList.remove('hidden');
 
-    document.addEventListener('keydown', onPopupEscPress);
-  };
+  document.addEventListener('keydown', onPopupEscPress);
+};
 
-  var closePopup = function () {
-    setup.classList.add('hidden');
-
-    document.removeEventListener('keydown', onPopupEscPress);
-  };
-
-  setupOpen.addEventListener('click', function () {
-    openPopup();
-  });
-
-  setupOpen.addEventListener('keydown', function (evt) {
-    if (evt.key === ENTER_TAB) {
-      openPopup();
-    }
-  });
-
-  setupClose.addEventListener('click', function () {
+var onPopupEscPress = function (evt) {
+  if (evt.key === ESCAPE) {
+    evt.preventDefault();
     closePopup();
-  });
+  }
+};
 
-  setupClose.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
+var closePopup = function () {
+  document.querySelector('.setup').classList.add('hidden');
+
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+var popupSettings = function () {
+  var setup = document.querySelector('.setup');
+
+  if (setup) {
+    var setupOpen = document.querySelector('.setup-open');
+    var setupClose = setup.querySelector('.setup-close');
+
+    var userName = setup.querySelector('input[name=username]');
+    setupOpen.addEventListener('click', function () {
+      openPopup();
+    });
+
+    setupOpen.addEventListener('keydown', function (evt) {
+      if (evt.key === ENTER) {
+        openPopup();
+      }
+    });
+
+    setupClose.addEventListener('click', function () {
       closePopup();
-    }
-  });
+    });
+
+    setupClose.addEventListener('keydown', function (evt) {
+      if (evt.key === ENTER) {
+        closePopup();
+      }
+    });
+
+    userName.addEventListener('focus', function () {
+      document.removeEventListener('keydown', onPopupEscPress);
+    });
+
+    userName.addEventListener('blur', function () {
+      document.addEventListener('keydown', onPopupEscPress);
+    });
+  }
 };
 
 popupSettings();
